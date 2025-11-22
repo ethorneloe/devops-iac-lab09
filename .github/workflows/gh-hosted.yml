@@ -1,0 +1,35 @@
+name: GitHub Hosted Runner Demo
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  run-on-gh-hosted:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Display runner information
+        run: |
+          echo "==================================="
+          echo "Running on GitHub Hosted Runner"
+          echo "==================================="
+          echo ""
+          echo "System Information:"
+          uname -a
+          echo ""
+          echo "Runner Details:"
+          echo "Runner OS: $RUNNER_OS"
+          echo "Runner Name: $RUNNER_NAME"
+          echo "Runner Architecture: $RUNNER_ARCH"
+          echo ""
+          echo "Available Resources:"
+          echo "CPU Cores: $(nproc)"
+          echo "Memory: $(free -h | awk '/^Mem:/ {print $2}')"
+          echo "Disk Space: $(df -h / | awk 'NR==2 {print $4 " available"}')"
